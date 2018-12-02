@@ -80,7 +80,7 @@ for g in range(0, 1):
 
         #####--------OPTIMIZACION-------#######
         optimiScipy(r)
-        crearExcelRed(r, r.tipoRed+"Base"+str(g))
+        crearExcelRed(r, r.tipoRed+"BaseNew"+str(g))
 
 print 'Fin'
 
