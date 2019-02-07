@@ -55,8 +55,8 @@ def calcularTiempoViaje(od, tparadaf, red):
     #Obtenemos todos los arcos de todas las rutas por seccion
     rutaArcos = calcularArcosRutaAsignada(od)
 
-    if od.origen.id == 75 and od.destino.id == 36:
-        print "este es"
+#    if od.origen.id == 75 and od.destino.id == 36:
+#        print "este es"
 
     #Sumamos tiempos fijos de la ruta, obteniendose un promedio por seccion
     for seccion in rutaArcos:
@@ -966,20 +966,21 @@ def asignarCarga(red):
     #Ida
         arcos = lineasGlobal[l].arcos['ida']
         lineasGlobal[l].infoCarga['ida'][0][arcos[0].origen] = lineasGlobal[l].cargaInicial + lineasGlobal[l].infoCarga['ida'][1][arcos[0].origen]-lineasGlobal[l].infoCarga['ida'][2][arcos[0].origen]
-        lineasGlobal[l].RPK += lineasGlobal[l].infoCarga['ida'][0][arcos[0].origen]*arcos[0].largo
         for c in range(1, len(arcos)):
             lineasGlobal[l].infoCarga['ida'][0][arcos[c].origen] = lineasGlobal[l].infoCarga['ida'][1][arcos[c].origen]-lineasGlobal[l].infoCarga['ida'][2][arcos[c].origen] + lineasGlobal[l].infoCarga['ida'][0][arcos[c-1].origen]
-            lineasGlobal[l].RPK += lineasGlobal[l].infoCarga['ida'][0][arcos[c].origen]*arcos[c].largo
+            lineasGlobal[l].RPK += (lineasGlobal[l].infoCarga['ida'][0][arcos[c].origen]+lineasGlobal[l].infoCarga['ida'][0][arcos[c-1].origen])/2*arcos[c].largo
         lineasGlobal[l].infoCarga['ida'][0][arcos[-1].destino] = lineasGlobal[l].infoCarga['ida'][1][arcos[-1].destino]-lineasGlobal[l].infoCarga['ida'][2][arcos[-1].destino] + lineasGlobal[l].infoCarga['ida'][0][arcos[-1].origen]
+        lineasGlobal[l].RPK += (lineasGlobal[l].infoCarga['ida'][0][arcos[-1].destino] + lineasGlobal[l].infoCarga['ida'][0][arcos[-1].origen]) / 2 * arcos[-1].largo
 
     #Ahora lo mismo en la vuelta. Se incluye la carga residual que quedo al final del sentido ida
         arcos = lineasGlobal[l].arcos['vuelta']
         lineasGlobal[l].infoCarga['vuelta'][0][arcos[0].origen] = lineasGlobal[l].infoCarga['ida'][0][lineasGlobal[l].arcos['ida'][-1].destino] + lineasGlobal[l].infoCarga['vuelta'][1][arcos[0].origen]-lineasGlobal[l].infoCarga['vuelta'][2][arcos[0].origen]
-        lineasGlobal[l].RPK += lineasGlobal[l].infoCarga['vuelta'][0][arcos[0].origen]*arcos[0].largo
+#        lineasGlobal[l].RPK += lineasGlobal[l].infoCarga['vuelta'][0][arcos[0].origen]*arcos[0].largo
         for c in range(1, len(arcos)):
             lineasGlobal[l].infoCarga['vuelta'][0][arcos[c].origen] = lineasGlobal[l].infoCarga['vuelta'][1][arcos[c].origen]-lineasGlobal[l].infoCarga['vuelta'][2][arcos[c].origen] + lineasGlobal[l].infoCarga['vuelta'][0][arcos[c-1].origen]
-            lineasGlobal[l].RPK += lineasGlobal[l].infoCarga['vuelta'][0][arcos[c].origen]*arcos[c].largo
+            lineasGlobal[l].RPK += (lineasGlobal[l].infoCarga['vuelta'][0][arcos[c].origen]+lineasGlobal[l].infoCarga['vuelta'][0][arcos[c-1].origen])/2*arcos[c].largo
         lineasGlobal[l].infoCarga['vuelta'][0][arcos[-1].destino] = lineasGlobal[l].infoCarga['vuelta'][1][arcos[-1].destino]-lineasGlobal[l].infoCarga['vuelta'][2][arcos[-1].destino] + lineasGlobal[l].infoCarga['vuelta'][0][arcos[-1].origen]
+        lineasGlobal[l].RPK += (lineasGlobal[l].infoCarga['vuelta'][0][arcos[-1].destino] + lineasGlobal[l].infoCarga['vuelta'][0][arcos[-1].origen]) / 2 * arcos[-1].largo
 
 
     #Antes de terminar buscamos la carga maxima

@@ -25,7 +25,7 @@ for g in range(0, 1):
     parametros['bd'] = 2.28
     parametros['at'] = 4189.115
     parametros['bt'] = 13
-    parametros['k'] = 0.8 #Nueva constante incorporado en octubre
+    parametros['k'] = 0.8 #Nueva constante incorporado en octubre 2018
     parametros['tparadaFija'] = 0.00424 #Nuevo tiempo de parada fijo calculado en octubre 2018
     #tmuertop = 0.00166
     #tpp = tmuertop + (Vp)/2*(1/20736.0+1/20736.0)
@@ -43,7 +43,7 @@ for g in range(0, 1):
     parametros['tsp'] = 0.001123
     parametros['tbp'] = 0.0006555
     parametros['tsc'] = 0.0004861
-    parametros['delta'] = 0.09766#*nivelDelta[g]
+    parametros['delta'] = 0.09766*nivelDelta[g]
 
 
 
@@ -80,7 +80,7 @@ for g in range(0, 1):
 
         #####--------OPTIMIZACION-------#######
         optimiScipy(r)
-        crearExcelRed(r, r.tipoRed+"BaseNew"+str(g))
+        crearExcelRed(r, r.tipoRed+"BaseFinal"+str(g))
 
 print 'Fin'
 
