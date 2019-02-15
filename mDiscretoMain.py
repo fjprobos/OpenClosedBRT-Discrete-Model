@@ -43,7 +43,7 @@ for g in range(0, 1):
     parametros['tsp'] = 0.001123
     parametros['tbp'] = 0.0006555
     parametros['tsc'] = 0.0004861
-    parametros['delta'] = 0.09766*nivelDelta[g]
+    parametros['delta'] = 0.09766#*nivelDelta[g] - Descomentar esto para hacer sensibilidad a delta
 
 
 
